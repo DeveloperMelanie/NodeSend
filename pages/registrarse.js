@@ -1,11 +1,20 @@
+import { useEffect } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import useAuth from 'hooks/useAuth'
+import { useRouter } from 'next/router'
 
 import Alert from 'components/Alert'
 
 export default function Register() {
-    const { registerUser, message } = useAuth()
+    const { registerUser, message, authenticated } = useAuth()
+    const router = useRouter()
+
+    useEffect(() => {
+        if (authenticated) {
+            router.push('/')
+        }
+    }, [authenticated])
 
     const formik = useFormik({
         initialValues: {

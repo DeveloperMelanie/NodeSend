@@ -1,10 +1,12 @@
 import Link from 'next/link'
+import useAuth from 'hooks/useAuth'
 import useApp from 'hooks/useApp'
 
 import Dropzone from 'components/Dropzone'
 import Alert from 'components/Alert'
 
 export default function Home() {
+    const { authenticated } = useAuth()
     const { fileMessage, url } = useApp()
 
     return (
@@ -49,12 +51,14 @@ export default function Home() {
                                 asegurarte de que tus cosas no permanezcan en
                                 línea para siempre.
                             </p>
-                            <Link href='/registrarse'>
-                                <a className='flex text-red-500 hover:text-red-700 font-bold text-lg mt-4'>
-                                    Crea tu cuenta y disfruta de privilegios
-                                    extra
-                                </a>
-                            </Link>
+                            {!authenticated && (
+                                <Link href='/registrarse'>
+                                    <a className='flex text-red-500 hover:text-red-700 font-bold text-lg mt-4'>
+                                        Crea tu cuenta y disfruta de privilegios
+                                        extra
+                                    </a>
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </>

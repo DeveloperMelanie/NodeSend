@@ -17,6 +17,7 @@ export default (state, action) => {
             return {
                 ...state,
                 message: action.payload,
+                authLoading: false,
             }
         case LOGIN_SUCCESS:
             localStorage.setItem('token', action.payload)
@@ -24,12 +25,14 @@ export default (state, action) => {
                 ...state,
                 token: action.payload,
                 authenticated: true,
+                authLoading: false,
             }
         case AUTHENTICATED_USER:
             return {
                 ...state,
                 user: action.payload,
                 authenticated: true,
+                authLoading: false,
             }
         case LOGOUT:
             localStorage.removeItem('token')
@@ -39,6 +42,7 @@ export default (state, action) => {
                 token: null,
                 authenticated: false,
                 user: null,
+                authLoading: false,
             }
         case CLEAR_MESSAGE:
             return {

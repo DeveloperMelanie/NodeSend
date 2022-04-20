@@ -24,6 +24,7 @@ const AuthState = ({ children }) => {
         authenticated: false,
         user: null,
         message: null,
+        authLoading: true,
     }
 
     const [state, dispatch] = useReducer(authReducer, initialState)
@@ -72,7 +73,7 @@ const AuthState = ({ children }) => {
 
     const getUser = async () => {
         const token = localStorage.getItem('token')
-        if (!token) return
+        if (!token) return dispatch({ type: LOGOUT })
 
         tokenAuth(token)
         try {
@@ -82,8 +83,7 @@ const AuthState = ({ children }) => {
                 payload: data.user,
             })
         } catch (error) {
-            localStorage.removeItem('token')
-            tokenAuth(null)
+            dispatch({ type: LOGOUT })
         }
     }
 
@@ -94,6 +94,7 @@ const AuthState = ({ children }) => {
                 authenticated: state.authenticated,
                 user: state.user,
                 message: state.message,
+                authLoading: state.authLoading,
                 registerUser,
                 logIn,
                 getUser,
