@@ -11,6 +11,10 @@ export default function NodeSend({ Component, pageProps }) {
         <>
             <Head>
                 <title>NodeSend</title>
+                <meta
+                    name='description'
+                    content='Comparte archivos de forma sencilla y privada con NodeSend'
+                />
                 <link rel='icon' href='/logo.svg' />
             </Head>
 
